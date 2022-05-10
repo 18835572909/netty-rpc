@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "";
+option java_outer_classname = "RequestProto"
+
+message RequestProto {
+
+  int64 requestId;
+
+  int32 type;
+
+  string msg;
+
+}

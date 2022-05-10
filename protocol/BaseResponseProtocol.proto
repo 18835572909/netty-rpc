@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "com.rhb.netty.protocol.protocolbuffer";
+option java_outer_classname = "ResponseProto";
+
+message ResponseProto {
+
+  int63 responseId = 1;
+
+  string msg = 2;
+
+  int32 type = 3;
+
+}
