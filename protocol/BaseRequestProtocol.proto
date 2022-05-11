@@ -1,14 +1,16 @@
 syntax = "proto3";
 
-option java_package = "";
-option java_outer_classname = "RequestProto"
+option java_package = "com.rhb.netty.protocol.protocolbuffer";
+option java_outer_classname = "RequestProto";
 
-message RequestProto {
+// protoc --java_out=./ BaseRequestProtocol.proto
 
-  int64 requestId;
+message RequestProtocol {
 
-  int32 type;
+  int64 requestId = 1;
 
-  string msg;
+  int32 type = 2;
+
+  string msg = 3;
 
 }

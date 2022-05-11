@@ -10,6 +10,39 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>netty-protocol</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>6</source>
+          <target>6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
+  <dependencies>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.9.0</version>
+    </dependency>
+
+    <!--    thrift依赖包 ，这个不可缺-->
+    <!-- https://mvnrepository.com/artifact/org.apache.thrift/libthrift -->
+    <dependency>
+      <groupId>org.apache.thrift</groupId>
+      <artifactId>libthrift</artifactId>
+      <version>0.16.0</version>
+    </dependency>
+  </dependencies>
 
 </project>
