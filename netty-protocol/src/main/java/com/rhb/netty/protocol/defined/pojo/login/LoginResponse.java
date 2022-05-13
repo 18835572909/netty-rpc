@@ -21,7 +21,7 @@ public class LoginResponse extends BasePacket {
 
   private String userHead;
 
-  private String userNick;
+  private String userNickName;
 
   private List<ChatDTO> chatList;
 
