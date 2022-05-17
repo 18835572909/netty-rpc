@@ -12,13 +12,11 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2022/5/13 15:41
  */
 @Slf4j
-public class LoginResponseChannelHandler extends NeBaseChannelHandler<LoginResponse> {
+public class LoginResponseChannelHandler extends AbstractBaseChannelHandler<LoginResponse> {
 
   @Override
   public void channelRead(Channel channel, LoginResponse loginResponse) {
     log.info("response:{}", JSONUtil.toJsonStr(loginResponse));
-
-
   }
 
 }

@@ -4,6 +4,7 @@ import com.rhb.netty.protocol.defined.codec.NeByteToMessageDecoder;
 import com.rhb.netty.protocol.defined.codec.NeMessageToByteEncoder;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * {desc}
@@ -16,6 +17,7 @@ public class NeChannelInitializer extends ChannelInitializer<SocketChannel> {
   @Override
   protected void initChannel(SocketChannel socketChannel) throws Exception {
     socketChannel.pipeline()
+        .addLast(new IdleStateHandler(10,0,5))
         .addLast(new NeByteToMessageDecoder())
         .addLast(new LoginRequestChannelHandler())
         .addLast(new NeMessageToByteEncoder());

@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2022/5/13 13:47
  */
 @Slf4j
-public class LoginRequestChannelHandler extends NeBaseChannelHandler<LoginRequest> {
+public class LoginRequestChannelHandler extends AbstractBaseChannelHandler<LoginRequest> {
 
   @Override
   public void channelRead(Channel channel, LoginRequest loginRequest) {

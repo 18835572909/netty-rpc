@@ -3,16 +3,20 @@ package com.rhb.netty.client.core.handler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
+import com.rhb.netty.client.core.util.ChannelUtil;
 
 /**
- * {desc}
+ * 通用处理器: 也可以将事件处理拆分添加ChannelPipeline中
  *
  * @author renhuibo
- * @date 2022/5/13 15:39
+ * @date 2022/5/13 10:31
  */
 @Slf4j
-public abstract class NeBaseChannelHandler <T> extends SimpleChannelInboundHandler<T> {
+public abstract class AbstractBaseChannelHandler<T> extends SimpleChannelInboundHandler<T> {
 
   @Override
   protected void channelRead0(ChannelHandlerContext channelHandlerContext, T t) throws Exception {
@@ -29,6 +33,23 @@ public abstract class NeBaseChannelHandler <T> extends SimpleChannelInboundHandl
    */
   @Override
   public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+
+    if(evt instanceof IdleStateEvent){
+      IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
+
+      if(idleStateEvent.state() == IdleState.READER_IDLE){
+        log.info("read idle ... ");
+      }
+
+      if(idleStateEvent.state() == IdleState.ALL_IDLE){
+        log.info("all idle ... ");
+      }
+
+      if(idleStateEvent.state() == IdleState.WRITER_IDLE){
+        log.info("write idle ... ");
+      }
+    }
+
     super.userEventTriggered(ctx, evt);
   }
 
@@ -39,8 +60,8 @@ public abstract class NeBaseChannelHandler <T> extends SimpleChannelInboundHandl
    */
   @Override
   public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-    super.channelRegistered(ctx);
     log.info("Channel Register ... ");
+    super.channelRegistered(ctx);
   }
 
   /**
@@ -50,8 +71,8 @@ public abstract class NeBaseChannelHandler <T> extends SimpleChannelInboundHandl
    */
   @Override
   public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-    super.channelUnregistered(ctx);
     log.info("Channel Out ... ");
+    super.channelUnregistered(ctx);
   }
 
   /**
@@ -61,8 +82,8 @@ public abstract class NeBaseChannelHandler <T> extends SimpleChannelInboundHandl
    */
   @Override
   public void channelActive(ChannelHandlerContext ctx) throws Exception {
-    super.channelActive(ctx);
     log.info("Channel Active ... ");
+    super.channelActive(ctx);
   }
 
   /**
@@ -72,8 +93,13 @@ public abstract class NeBaseChannelHandler <T> extends SimpleChannelInboundHandl
    */
   @Override
   public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-    super.channelInactive(ctx);
     log.info("Channel Inactive ... ");
+    ctx.channel().close();
+
+    /**
+     * 断线重连
+     */
+    ChannelUtil.reConnection(ctx);
   }
 
   /**
@@ -83,8 +109,8 @@ public abstract class NeBaseChannelHandler <T> extends SimpleChannelInboundHandl
    */
   @Override
   public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-    super.channelReadComplete(ctx);
     log.info("Read Over ... ");
+    super.channelReadComplete(ctx);
   }
 
   /**
@@ -94,19 +120,35 @@ public abstract class NeBaseChannelHandler <T> extends SimpleChannelInboundHandl
    */
   @Override
   public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
-    super.channelWritabilityChanged(ctx);
     log.info("Write Status Change ... ");
+    super.channelWritabilityChanged(ctx);
   }
 
   /**
    * 触发异常
+   * 源码流程： AbstractNioByteChannel#NioByteUnsafe#handleReadException()
+   *
    * @param ctx
    * @param cause
    * @throws Exception
    */
   @Override
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-    super.exceptionCaught(ctx, cause);
     log.info("Netty Server Exception ... ");
+
+    if(cause instanceof IOException){
+      /**
+       * 避免异常后触发channelInactive
+       */
+      ctx.pipeline().remove(this);
+
+      ctx.channel().close();
+      /**
+       * 断线重连
+       */
+      ChannelUtil.reConnection(ctx);
+    }
+
   }
+
 }
