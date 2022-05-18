@@ -1,10 +1,10 @@
 package com.rhb.netty.server.core.handler;
 
+import com.rhb.netty.protocol.defined.pojo.heartbeat.PingRequest;
+import com.rhb.netty.util.NettyAttrUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,39 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractBaseChannelHandler<T> extends SimpleChannelInboundHandler<T> {
 
   @Override
-  protected void channelRead0(ChannelHandlerContext channelHandlerContext, T t) throws Exception {
-    channelRead(channelHandlerContext.channel(),t);
+  protected void channelRead0(ChannelHandlerContext ctx, T t) throws Exception {
+    if(t instanceof PingRequest){
+      NettyAttrUtil.updateReadTime(ctx.channel(),System.currentTimeMillis());
+    }
+
+    channelRead(ctx.channel(),t);
   }
 
   public abstract void channelRead(Channel channel,T t);
-
-  /**
-   * 事件触发器，常用于心跳检测
-   * @param ctx
-   * @param evt
-   * @throws Exception
-   */
-  @Override
-  public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-
-    if(evt instanceof IdleStateEvent){
-      IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
-
-      if(idleStateEvent.state() == IdleState.READER_IDLE){
-        log.info("read idle ... ");
-      }
-
-      if(idleStateEvent.state() == IdleState.ALL_IDLE){
-        log.info("all idle ... ");
-      }
-
-      if(idleStateEvent.state() == IdleState.WRITER_IDLE){
-        log.info("write idle ... ");
-      }
-    }
-
-    super.userEventTriggered(ctx, evt);
-  }
 
   /**
    * Channnel注册到EventLoop时
@@ -128,7 +104,8 @@ public abstract class AbstractBaseChannelHandler<T> extends SimpleChannelInbound
    */
   @Override
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-    log.info("Netty Server Exception ... ");
+    log.info("Netty Server Exception ...");
+    cause.printStackTrace();
 
     if(cause instanceof IOException){
       /**

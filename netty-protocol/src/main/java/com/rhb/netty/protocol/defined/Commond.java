@@ -16,4 +16,8 @@ public interface Commond {
 
   Byte MSG_RESPONSE = 4;
 
+  Byte PING_REQUEST = 5;
+
+  Byte PONG_RESPONSE = 6;
+
 }

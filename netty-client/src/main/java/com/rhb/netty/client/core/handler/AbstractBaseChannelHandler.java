@@ -1,13 +1,11 @@
 package com.rhb.netty.client.core.handler;
 
+import com.rhb.netty.client.core.util.ChannelUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.timeout.IdleState;
-import io.netty.handler.timeout.IdleStateEvent;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
-import com.rhb.netty.client.core.util.ChannelUtil;
 
 /**
  * 通用处理器: 也可以将事件处理拆分添加ChannelPipeline中
@@ -24,34 +22,6 @@ public abstract class AbstractBaseChannelHandler<T> extends SimpleChannelInbound
   }
 
   public abstract void channelRead(Channel channel,T t);
-
-  /**
-   * 事件触发器，常用于心跳检测
-   * @param ctx
-   * @param evt
-   * @throws Exception
-   */
-  @Override
-  public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-
-    if(evt instanceof IdleStateEvent){
-      IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
-
-      if(idleStateEvent.state() == IdleState.READER_IDLE){
-        log.info("read idle ... ");
-      }
-
-      if(idleStateEvent.state() == IdleState.ALL_IDLE){
-        log.info("all idle ... ");
-      }
-
-      if(idleStateEvent.state() == IdleState.WRITER_IDLE){
-        log.info("write idle ... ");
-      }
-    }
-
-    super.userEventTriggered(ctx, evt);
-  }
 
   /**
    * Channnel注册到EventLoop时
@@ -134,7 +104,7 @@ public abstract class AbstractBaseChannelHandler<T> extends SimpleChannelInbound
    */
   @Override
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-    log.info("Netty Server Exception ... ");
+    log.info("Netty Client Exception ... ");
 
     if(cause instanceof IOException){
       /**

@@ -1,5 +1,7 @@
 package com.rhb.netty.protocol.defined;
 
+import com.rhb.netty.protocol.defined.pojo.heartbeat.PingRequest;
+import com.rhb.netty.protocol.defined.pojo.heartbeat.PongResponse;
 import com.rhb.netty.protocol.defined.pojo.login.LoginRequest;
 import com.rhb.netty.protocol.defined.pojo.login.LoginResponse;
 import com.rhb.netty.protocol.defined.pojo.msg.MsgRequest;
@@ -22,6 +24,8 @@ public abstract class BasePacket {
     PACKET_TYPE.put(Commond.LOGIN_RESPONSE, LoginResponse.class);
     PACKET_TYPE.put(Commond.MSG_REQUEST, MsgRequest.class);
     PACKET_TYPE.put(Commond.MSG_RESPONSE, MsgResponse.class);
+    PACKET_TYPE.put(Commond.PING_REQUEST, PingRequest.class);
+    PACKET_TYPE.put(Commond.PONG_RESPONSE, PongResponse.class);
   }
 
   public static Class<? extends BasePacket> getType(Byte commond){

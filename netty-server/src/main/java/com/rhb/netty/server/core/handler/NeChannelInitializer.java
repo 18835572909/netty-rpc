@@ -17,8 +17,9 @@ public class NeChannelInitializer extends ChannelInitializer<SocketChannel> {
   @Override
   protected void initChannel(SocketChannel socketChannel) throws Exception {
     socketChannel.pipeline()
-        .addLast(new IdleStateHandler(10,0,5))
+        .addLast(new IdleStateHandler(5,0,0))
         .addLast(new NeByteToMessageDecoder())
+        .addLast(new HeartbeatChannelHandler())
         .addLast(new LoginRequestChannelHandler())
         .addLast(new NeMessageToByteEncoder());
   }
