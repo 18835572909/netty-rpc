@@ -1,7 +1,7 @@
 package com.rhb.netty.server.core;
 
 import com.rhb.netty.constant.SystemConstant;
-import com.rhb.netty.server.core.handler.NeChannelInitializer;
+import com.rhb.netty.server.core.custom.handler.NeChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

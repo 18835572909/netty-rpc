@@ -1,4 +1,4 @@
-package com.rhb.netty.server.core.handler;
+package com.rhb.netty.server.core.custom.handler;
 
 import cn.hutool.json.JSONUtil;
 import com.rhb.netty.protocol.defined.pojo.login.LoginRequest;

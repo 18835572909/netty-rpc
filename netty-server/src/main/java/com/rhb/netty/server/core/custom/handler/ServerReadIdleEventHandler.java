@@ -1,4 +1,4 @@
-package com.rhb.netty.server.core.handler;
+package com.rhb.netty.server.core.custom.handler;
 
 import com.rhb.netty.handler.IdleStateHandlerAdapter;
 import com.rhb.netty.util.NettyAttrUtil;
