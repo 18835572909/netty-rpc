@@ -1,8 +1,9 @@
-package com.rhb.netty.server.core.custom.handler;
+package com.rhb.netty.server.core.handler.custom;
 
 import com.rhb.netty.handler.IdleStateHandler;
 import com.rhb.netty.protocol.defined.pojo.heartbeat.PingRequest;
 import com.rhb.netty.protocol.defined.pojo.heartbeat.PongResponse;
+import com.rhb.netty.server.core.handler.AbstractBaseChannelHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;

@@ -1,4 +1,4 @@
-package com.rhb.netty.client.core.handler;
+package com.rhb.netty.client.core.handler.custom;
 
 import com.rhb.netty.handler.IdleStateHandlerAdapter;
 import com.rhb.netty.protocol.defined.pojo.heartbeat.PingRequest;

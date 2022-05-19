@@ -1,8 +1,9 @@
-package com.rhb.netty.server.core.custom.handler;
+package com.rhb.netty.server.core.handler.custom;
 
 import cn.hutool.json.JSONUtil;
 import com.rhb.netty.protocol.defined.pojo.login.LoginRequest;
 import com.rhb.netty.protocol.defined.pojo.login.LoginResponse;
+import com.rhb.netty.server.core.handler.AbstractBaseChannelHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;

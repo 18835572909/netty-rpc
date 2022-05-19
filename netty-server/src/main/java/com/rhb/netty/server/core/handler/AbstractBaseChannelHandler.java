@@ -1,4 +1,4 @@
-package com.rhb.netty.server.core.custom.handler;
+package com.rhb.netty.server.core.handler;
 
 import com.rhb.netty.protocol.defined.pojo.heartbeat.PingRequest;
 import com.rhb.netty.util.NettyAttrUtil;

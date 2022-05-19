@@ -3,8 +3,13 @@ package com.rhb.netty.client.core.util;
 import cn.hutool.json.JSONUtil;
 import com.rhb.netty.client.core.NettyClient;
 import com.rhb.netty.protocol.defined.pojo.login.LoginRequest;
+import com.rhb.netty.protocol.protocolbuffer.RequestProto;
+import com.rhb.netty.protocol.protocolbuffer.RequestProto.RequestProtocol;
+import com.rhb.netty.protocol.protocolbuffer.ResponseProto;
+import com.rhb.netty.protocol.protocolbuffer.ResponseProto.ResponseProtocol;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
@@ -49,5 +54,25 @@ public class ChannelUtil {
 
     channelFuture.addListener(channelFutureListener -> log.info("request: {}", JSONUtil.toJsonStr(request)));
   }
+
+  /**
+   * protocol buffer 发送信息
+   * @param client
+   */
+  public static void sendProtocolReqMsg(Channel client){
+    RequestProtocol hello = RequestProtocol.newBuilder()
+        .setMsg("hello")
+        .setType(1)
+        .setRequestId(System.currentTimeMillis())
+        .build();
+
+    client.writeAndFlush(hello).addListener((ChannelFutureListener) future -> {
+      if(!future.isSuccess()){
+        log.info("请求服务出现错误");
+      }
+    });
+  }
+
+
 
 }

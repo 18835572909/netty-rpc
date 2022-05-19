@@ -18,7 +18,7 @@
 
 5. Netty通讯协议之自定义长度-粘包问题
 
-6. Netty之ProtocolBuffer通讯
+6. Netty之ProtocolBuffer通讯(已完)
 
 7. Netty之HttpServer搭建
 

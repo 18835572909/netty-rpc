@@ -18,6 +18,7 @@ public abstract class AbstractBaseChannelHandler<T> extends SimpleChannelInbound
 
   @Override
   protected void channelRead0(ChannelHandlerContext channelHandlerContext, T t) throws Exception {
+    log.info("接受信息");
     channelRead(channelHandlerContext.channel(),t);
   }
 

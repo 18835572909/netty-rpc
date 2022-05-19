@@ -1,7 +1,7 @@
 package com.rhb.netty.server.core;
 
 import com.rhb.netty.constant.SystemConstant;
-import com.rhb.netty.server.core.custom.handler.NeChannelInitializer;
+import com.rhb.netty.server.core.handler.protocol.ProChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -40,7 +40,8 @@ public class NettyServer {
            * 保持长链接
            */
           .option(ChannelOption.SO_KEEPALIVE,true)
-          .childHandler(new NeChannelInitializer());
+//          .childHandler(new NeChannelInitializer());
+          .childHandler(new ProChannelInitializer());
 
       ChannelFuture channelFuture = b.bind(new InetSocketAddress(SystemConstant.SERVER_PORT)).syncUninterruptibly();
       if(channelFuture.isSuccess()){

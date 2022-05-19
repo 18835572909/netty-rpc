@@ -1,5 +1,6 @@
-package com.rhb.netty.client.core.handler;
+package com.rhb.netty.client.core.handler.custom;
 
+import com.rhb.netty.client.core.handler.AbstractBaseChannelHandler;
 import com.rhb.netty.handler.IdleStateHandler;
 import com.rhb.netty.protocol.defined.pojo.heartbeat.PongResponse;
 import io.netty.channel.Channel;

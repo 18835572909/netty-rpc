@@ -32,7 +32,7 @@ public class ClientApplication implements CommandLineRunner {
     nettyClient.connect();
 
     for(int i=0;i<3;i++){
-      ChannelUtil.sendDemoMsg(nettyClient.getChannel());
+      ChannelUtil.sendProtocolReqMsg(nettyClient.getChannel());
       TimeUnit.SECONDS.sleep(3);
     }
   }
