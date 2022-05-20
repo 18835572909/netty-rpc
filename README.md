@@ -4,7 +4,7 @@
 ## 手写Http代理类
 使用JDK-Proxy完成动态代理，实现伪rpc通讯（完成）
 
-## 添加rpc支持
+## netty知识点
 1. protocol buffer 3 使用样例
 
 2. thrift协议使用样例(已完)
