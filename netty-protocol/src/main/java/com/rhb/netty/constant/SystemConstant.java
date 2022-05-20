@@ -12,4 +12,6 @@ public class SystemConstant {
 
   public static final Integer SERVER_PORT = 10200;
 
+  public static final String SERVER_DELIMITET = "_$";
+
 }

@@ -1,6 +1,9 @@
 package com.rhb.netty.server.core;
 
 import com.rhb.netty.constant.SystemConstant;
+import com.rhb.netty.server.core.handler.delimiter.DelimiterChannelInitializer;
+import com.rhb.netty.server.core.handler.http.HttpChannelInitializer;
+import com.rhb.netty.server.core.handler.http.HttpFullHttpRequestHandler;
 import com.rhb.netty.server.core.handler.protocol.ProChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -41,7 +44,9 @@ public class NettyServer {
            */
           .option(ChannelOption.SO_KEEPALIVE,true)
 //          .childHandler(new NeChannelInitializer());
-          .childHandler(new ProChannelInitializer());
+//          .childHandler(new ProChannelInitializer());
+//          .childHandler(new HttpChannelInitializer());
+          .childHandler(new DelimiterChannelInitializer());
 
       ChannelFuture channelFuture = b.bind(new InetSocketAddress(SystemConstant.SERVER_PORT)).syncUninterruptibly();
       if(channelFuture.isSuccess()){

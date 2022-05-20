@@ -1,6 +1,7 @@
 package com.rhb.netty.client.core;
 
 import com.rhb.netty.client.core.handler.protocol.ProChannelInitializer;
+import com.rhb.netty.client.core.handler.unpacking.UnpackingChannelInitializer;
 import com.rhb.netty.constant.SystemConstant;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -34,8 +35,9 @@ public class NettyClient {
     bootstrap.group(worker)
         .channel(NioSocketChannel.class)
         .option(ChannelOption.AUTO_READ,true)
-        .handler(new ProChannelInitializer());
+//        .handler(new ProChannelInitializer());
 //        .handler(new NeChannelInitializer());
+        .handler(new UnpackingChannelInitializer());
   }
 
   public boolean connect(){

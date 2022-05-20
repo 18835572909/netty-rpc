@@ -2,11 +2,14 @@ package com.rhb.netty.client.core.util;
 
 import cn.hutool.json.JSONUtil;
 import com.rhb.netty.client.core.NettyClient;
+import com.rhb.netty.constant.SystemConstant;
 import com.rhb.netty.protocol.defined.pojo.login.LoginRequest;
 import com.rhb.netty.protocol.protocolbuffer.RequestProto;
 import com.rhb.netty.protocol.protocolbuffer.RequestProto.RequestProtocol;
 import com.rhb.netty.protocol.protocolbuffer.ResponseProto;
 import com.rhb.netty.protocol.protocolbuffer.ResponseProto.ResponseProtocol;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -73,6 +76,35 @@ public class ChannelUtil {
     });
   }
 
+  /**
+   * 测试 LineBasedChannelHandler 发送信息
+   * @param client
+   */
+  public static void sendLineByteBufReqMsg(Channel client){
+    String content = "hello world\r\nchina body\r\n";
 
+    client.writeAndFlush(content).addListener((ChannelFutureListener) future -> {
+      if(!future.isSuccess()){
+        log.info("请求服务出现错误");
+      }
+    });
+  }
+
+  /**
+   * 测试 DelimiterBasedChannelHandler 发送信息
+   * @param client
+   */
+  public static void sendDelimiterByteBufReqMsg(Channel client){
+    String content = "hello world"+ SystemConstant.SERVER_DELIMITET +"china body" + SystemConstant.SERVER_DELIMITET;
+    byte[] req = content.getBytes();
+    ByteBuf message = Unpooled.buffer(req.length);
+    message.writeBytes(req);
+
+    client.writeAndFlush(message).addListener((ChannelFutureListener) future -> {
+      if(!future.isSuccess()){
+        log.info("请求服务出现错误");
+      }
+    });
+  }
 
 }

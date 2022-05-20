@@ -14,20 +14,21 @@
     2. 服务端定时清理(已完)
     3. 心跳机制(已完)
 
-4. Netty通讯协议之自定义分割符-粘包问题
+4. Netty处理拆包、粘包(已完)
+   1. Netty通讯协议之自定义分割符-粘包问题
+   2. Netty通讯协议之自定义长度-粘包问题
+   
+5. Nettt之序列化处理(已完)
+   1. JDK
+   2. JBoss Marshalling
+   3. Protocol Buffer
 
-5. Netty通讯协议之自定义长度-粘包问题
-
-6. Netty之ProtocolBuffer通讯(已完)
-
-7. Netty之HttpServer搭建
-
-8. Netty之TCP通讯
-
-9. Netty之UDP通讯
-
-10. Netty之WebSocket通讯
+7. Netty之网络通讯
+   1. HttpServer搭建(已完)
+   2. TCP通讯
+   3. UDP通讯
+   4. Netty之WebSocket通讯
 
 ## Netty之ByteBuf-API样例
 1. Unpooled
-2. ...
+2. ByteBufUtil ... 
