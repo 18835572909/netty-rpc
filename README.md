@@ -27,7 +27,7 @@
    1. HttpServer搭建(已完)
    2. TCP通讯
    3. UDP通讯
-   4. WebSocket通讯
+   4. WebSocket通讯（已完）
 
 ## Netty之ByteBuf-API样例
 1. Unpooled
