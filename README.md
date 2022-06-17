@@ -25,8 +25,8 @@
 
 7. Netty之网络通讯
    1. HttpServer搭建(已完)
-   2. TCP通讯
-   3. UDP通讯
+   2. TCP通讯（已完）
+   3. UDP通讯（已完）
 
 8. WebSocket通讯(已完)
   1. WebSocket原理
