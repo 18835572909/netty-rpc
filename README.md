@@ -27,23 +27,25 @@
    1. HttpServer搭建(已完)
    2. TCP通讯
    3. UDP通讯
-   4. WebSocket通讯(已完)
-      1. WebSocket原理
-          * 本质是对http请求进行的升级握手（Upgrade handshake）
-          
-      2. Http升级WebSocket后Handler执行器链的改变
-          * connect before：
-          HttpServerCodec(HttpRequestDecoder\HttpRequestEncoder)、ChunkedWriteHandler、HttpObjectAggregator、HttpRequestHandler、WebSocketServerProtocolHandler、TextWebSocketFrameHandler
-          
-          * connect after:
-          WebSocketFrameDecoder、WebSocketFrameEncoder、WebSocketServerProtocolHandler、TextWebSocketFrameHandler
+
+8. WebSocket通讯(已完)
+  1. WebSocket原理
+      * 本质是对http请求进行的升级握手（Upgrade handshake）
       
-      3. 文件传输
-          * 文件写入的handler一定是要的ChunkedWriteHandler
-          * http协议使用zero-copy的 DefaultFileRegion
-          * ssl支持的不支持zero-copy，使用ChunkedNioFile
+  2. Http升级WebSocket后Handler执行器链的改变
+      * connect before：
+      HttpServerCodec(HttpRequestDecoder\HttpRequestEncoder)、ChunkedWriteHandler、HttpObjectAggregator、HttpRequestHandler、WebSocketServerProtocolHandler、TextWebSocketFrameHandler
       
-      4. 理解chanel.retain()方法\FullHttpRequest.replace()方法
+      * connect after:
+      WebSocketFrameDecoder、WebSocketFrameEncoder、WebSocketServerProtocolHandler、TextWebSocketFrameHandler
+  
+  3. 文件传输
+      * 文件写入的handler一定是要的ChunkedWriteHandler
+      * http协议使用zero-copy的 DefaultFileRegion
+      * ssl支持的不支持zero-copy，使用ChunkedNioFile
+  
+  4. 理解chanel.retain()方法\FullHttpRequest.replace()方法
+
 
 ## Netty之ByteBuf-API样例
 1. Unpooled
